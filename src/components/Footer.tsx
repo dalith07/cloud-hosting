@@ -33,8 +33,8 @@ const Footer = () => {
         &copy;<span>{currentYear}</span> All Right Reserved By Kira
       </p>
 
-      <div className="absolute top-16 right-0 bg-blue-500 p-4 rounded-md">
-        <p className="text-md text-gray-200 font-semibold">
+      <div className="absolute top-16 right-0 bg-blue-500 p-2 rounded-sm">
+        <p className="text-xs text-gray-200 font-semibold">
           <span>{time.hours.toString().padStart(2, "0")}</span>:
           <span>{time.minutes.toString().padStart(2, "0")}</span>:
           <span>{time.seconds.toString().padStart(2, "0")}</span>

@@ -1,22 +1,28 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ToastContainer, toast } from "react-toastify";
-import { Noto_Kufi_Arabic } from "next/font/google";
+import { Dancing_Script } from "next/font/google";
+import AddArticleForm from "./AddArticleForm";
+import { cn } from "@/lib/utils";
 
-const kufiArabic = Noto_Kufi_Arabic({
-  subsets: ["arabic"],
-  weight: ["300", "500"],
+const DancingScript = Dancing_Script({
+  subsets: ["latin"],
+  weight: ["400", "600"],
 });
 
 function page() {
-  const notify = () => toast.success("success");
   return (
-    <div>
-      Admin Page
-      <p className={kufiArabic.className}>أهلا بالجميع</p>
-      <Button onClick={notify}>click button</Button>
-      <ToastContainer />
+    <div className="fix-height flex items-center justify-center px-5 lg:px-20">
+      <div className="shadow p-4 bg-purple-200 rounded w-full">
+        <h2
+          className={cn(
+            "text-xl lg:text-2xl text-green-700 font-semibold mb-4",
+            DancingScript.className
+          )}
+        >
+          Add New Articles
+        </h2>
+        <AddArticleForm />
+      </div>
     </div>
   );
 }

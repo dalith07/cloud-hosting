@@ -8,7 +8,7 @@ const Header = () => {
     <header
       // className={styles.header}
       className={
-        "sticky inset-x-0 top-0 w-full z-[100] h-16 flex items-center justify-between px-10 rounded bg-gray-200"
+        "sticky top-0 w-full z-[100] h-16 flex items-center justify-between px-6 rounded bg-gray-200"
       }
     >
       <Navbar />

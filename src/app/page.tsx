@@ -22,3 +22,17 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+// HTTP Protocol
+
+// CRUD Opertions
+// C create R read U update D delete
+
+//HTTP Methods
+// GET POST DELETE PUT
+
+// HTTP Request & HTTP Response
+// Includes { headers: {...metadata}, body: {...data} }
+
+// HTTP Status Code
+// 404 NOt Found, 400 Bad Request, 200 Successfull, 201 Created Successfully

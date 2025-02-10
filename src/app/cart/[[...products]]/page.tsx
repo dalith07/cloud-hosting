@@ -1,19 +1,15 @@
-import React from "react";
-
 interface ProductsPageProps {
-  params?: { products?: string[] };
+  params: Promise<{ products?: string[] }>;
 }
 
-const ProductsPage = ({ params }: ProductsPageProps) => {
-  console.log("✅✅✅✅", params);
+const ProductsPage = async ({ params }: ProductsPageProps) => {
+  const paramData = await params;
+
   return (
-    <div
-      className="fixi-height text-3xl font-bold
-    p-5"
-    >
-      product page
+    <div className="fix-height text-3xl font-bold p-5">
+      Product Page
       <ul className="mt-7">
-        {params?.products?.map((route, id) => (
+        {paramData?.products?.map((route, id) => (
           <li key={id} className="font-normal text-xl text-gray-600">
             {route}
           </li>
@@ -24,18 +20,3 @@ const ProductsPage = ({ params }: ProductsPageProps) => {
 };
 
 export default ProductsPage;
-
-// import React from "react";
-
-// const page = () => {
-//   return (
-//     <div
-//       className="fixi-height text-3xl font-bold
-//         p-5"
-//     >
-//       Cart Page
-//     </div>
-//   );
-// };
-
-// export default page;
