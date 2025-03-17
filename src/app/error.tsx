@@ -12,7 +12,7 @@ const error = ({ error, reset }: ErrorPageProps) => {
   return (
     <div className="fix-height pt-7 text-center">
       <div className="text-3xl text-red-600 font-semibold">
-        Somthing went wrong
+        Somthing Went Wrong
       </div>
       <h2 className="text-gray-700 my-3 text-xl">
         Error Message: {error.message}
