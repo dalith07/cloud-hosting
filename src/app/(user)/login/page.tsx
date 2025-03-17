@@ -1,6 +1,13 @@
 import LoginForm from "./LoginForm";
+// import { cookies } from "next/headers";
+// import { redirect } from "next/navigation";
 
-function page() {
+async function page() {
+  //const token = (await cookies()).get("jwtToken")?.value;
+
+  // code fel middleware khir meli nhoto lena w f register
+  // kif y3od andy token yaani andy user w nemchi lel url men fo9 namel /login myheznich khter andy compte
+  //if (token) redirect("/");
   return (
     <section
       className="fix-height container m-auto px-7 flex 

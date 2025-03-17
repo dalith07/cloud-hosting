@@ -15,9 +15,7 @@ const WebHostingPlan = () => {
         bg-gray-200 mb-7 md:w-2/4 lg:w-1/4"
     >
       <h3 className="text-3xl font-bold text-purple-900">Premium</h3>
-      <strong className="text-2xl font-bold text-gray-900 my-5">
-        $4.99/mo
-      </strong>
+      <strong className=" text-gray-900 my-5">$4.99/mo</strong>
       <span
         className="bg-red-200 text-red-900 rounded-full px-2 py-1 
       font-semibold"

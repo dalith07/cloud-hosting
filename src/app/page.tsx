@@ -2,6 +2,7 @@ import Hero from "@/components/home/Hero";
 import WebHostingPlan from "@/components/home/WebHostingPlan";
 
 const HomePage = () => {
+  console.log("✅Home page is called");
   return (
     <div>
       <Hero />

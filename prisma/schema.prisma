@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,39 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement()) // postgres mech yamel el id hetha
+  email     String    @unique
+  username  String    @db.VarChar(100) // maxLength(100)
+  passowrd  String // required
+  isAdmin   Boolean   @default(false)
+  createdAt DateTime  @default(now()) // yatini el w9tt eli tamml fih user
+  updatedAt DateTime  @updatedAt // yatini el w9tt eli tamml fih updated user
+  comments  Comment[]
+}
+
+model Article {
+  id          Int       @id @default(autoincrement()) // postgres mech yamel el id hetha
+  title       String    @db.VarChar(200)
+  description String
+  createdAt   DateTime  @default(now()) // Timestamp when created
+  updatedAt   DateTime  @updatedAt /// Timestamp when updated
+  comments    Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement()) // postgres mech yamel el id hetha
+  text      String
+  createdAt DateTime @default(now()) // yatini el w9tt eli tamml fih user
+  updatedAt DateTime @updatedAt // yatini el w9tt eli tamml fih updated user
+  articleId Int
+  userId    Int
+
+  // One-to-many relation between Article & Comment
+  Article Article @relation(fields: [articleId], references: [id], onDelete: Cascade) // references: [id] yaani arbet  articleId Int maa id  Int  @id @default(autoincrement())  
+
+  // One-to-many relation between User & Comment
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -1,34 +1,51 @@
+import { getArticles } from "@/apiCalls/articleApiCall";
 import ArticlesItems from "@/components/articles/ArticleItem";
 import Pagination from "@/components/articles/Pagination";
 import SearchArticleInput from "@/components/articles/SearchArticleInput";
-import { Article } from "@/lib/utils";
+import { ARTICLE_PER_PAGE } from "@/lib/constants";
+import prisma from "@/lib/db";
+import { Article } from "@prisma/client";
 import type { Metadata } from "next";
+// interface ArticlePageProps {
+//   searchParams: { pageNumber?: string };
+// }
 
-import React from "react";
+interface ArticlePageProps {
+  searchParams: Promise<{
+    pageNumber: string;
+    searchText?: string;
+  }>;
+}
 
-const ArticlesPage = async () => {
-  // delay 3 secondes
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+const ArticlesPage = async ({ searchParams }: ArticlePageProps) => {
+  const params = await searchParams;
+  const pageNumber = params.pageNumber ?? "1";
 
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
-    // next: { revalidate: 50 }, // baad 50 secondes yaweed yamel caching lel api
-  });
+  const articles: Article[] = await getArticles(pageNumber);
+  const count: number = await prisma.article.count();
 
-  const articles: Article[] = await response.json();
-
-  if (!response.ok) {
-    throw new Error("Faild to fetch articles ❌");
-  }
+  const pages = Math.ceil(count / ARTICLE_PER_PAGE);
 
   return (
     <section className="container m-auto px-5">
       <SearchArticleInput />
+      <div className="block md:hidden">
+        <Pagination
+          pages={pages}
+          pageNumber={parseInt(pageNumber)}
+          route="/articles"
+        />
+      </div>
       <div className="flex items-center justify-center flex-wrap gap-7">
-        {articles.slice(0, 6).map((item) => (
+        {articles.map((item) => (
           <ArticlesItems article={item} key={item.id} />
         ))}
       </div>
-      <Pagination />
+      <Pagination
+        pages={pages}
+        pageNumber={parseInt(pageNumber)}
+        route="/articles"
+      />
     </section>
   );
 };

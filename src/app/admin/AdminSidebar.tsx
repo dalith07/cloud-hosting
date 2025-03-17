@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CgMenuGridR } from "react-icons/cg";
 import { MdOutlineArticle } from "react-icons/md";
 import { FaRegComments } from "react-icons/fa6";
+import { FaUsers } from "react-icons/fa";
 
 const AdminSidebar = () => {
   return (
@@ -22,12 +23,21 @@ const AdminSidebar = () => {
           <MdOutlineArticle className="me-1" />
           <span className="hidden lg:block">Articles</span>
         </Link>
+
         <Link
           className="flex items-center text-xl mb-5 lg:border-b border-gray-300 hover:border-yellow-200 hover:text-yellow-200 transition"
           href="/admin/comments-table"
         >
           <FaRegComments className="me-1" />
           <span className="hidden lg:block">Comments</span>
+        </Link>
+
+        <Link
+          className="flex items-center text-xl mb-5 lg:border-b border-gray-300 hover:border-yellow-200 hover:text-yellow-200 transition"
+          href="/admin/users-table"
+        >
+          <FaUsers className="me-1" />
+          <span className="hidden lg:block">Users</span>
         </Link>
       </ul>
     </>

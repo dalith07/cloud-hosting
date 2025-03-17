@@ -1,29 +1,37 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Button } from "@/components/ui/button";
+import { DOMAIN } from "@/lib/constants";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const AddArticleForm = () => {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const fromSubmitHandler = (e: React.FormEvent) => {
+  const fromSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     if (title === "") return toast.error("Title is required");
     if (description === "") return toast.error("Description is required");
-
-    if (title && description) return toast.success("Success");
-    // test@gmail.com
-    // 12345678
+    // next js working Better than react js
+    try {
+      await axios.post(`${DOMAIN}/api/articles`, { title, description });
+      setTitle("");
+      setDescription("");
+      toast.success("New Article Added");
+      router.refresh();
+    } catch (error: any) {
+      toast.error(error?.response?.data.message);
+      console.log(error);
+    }
   };
 
   return (
     <div>
-      <form
-        action=""
-        className="relative flex flex-col"
-        onSubmit={fromSubmitHandler}
-      >
+      <form className="relative flex flex-col" onSubmit={fromSubmitHandler}>
         <input
           className="mb-4 border-gray-400 rounded p-3 text-xl"
           type="text"

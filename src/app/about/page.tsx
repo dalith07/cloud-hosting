@@ -6,6 +6,7 @@ const dancingScript = Dancing_Script({
 });
 
 const page = () => {
+  console.log("❌About page is called");
   return (
     <div className={cn("fix-height container m-auto", dancingScript.className)}>
       <h1 className="text-xl font-bold text-gray-800 p-5">About This Page</h1>

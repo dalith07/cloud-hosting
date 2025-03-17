@@ -9,8 +9,9 @@ const Hero = () => {
   return (
     <section
       className="h-screen flex items-center justify-between text-gray-800 px-7 
-    flex-wrap"
+   flex-col lg:flex-row gap-8"
     >
+      {/* flex-wrap */}
       <div className="">
         <h1 className="text-4xl font-bold text-black">Cloud Hosting</h1>
         <p className="text-[21px]">

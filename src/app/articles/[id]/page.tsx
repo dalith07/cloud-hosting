@@ -1,21 +1,21 @@
+import { getSingleArticle } from "@/apiCalls/articleApiCall";
 import AddCommentForm from "@/components/comments/AddCommentForm";
 import CommentItem from "@/components/comments/CommentItem";
-import { Article } from "@/lib/utils";
+import { SingleArticle } from "@/lib/utils";
+import { verifyTokenFroPage } from "@/lib/verifyToken";
+import { cookies } from "next/headers";
 
 interface SingleArticlePageProps {
   params: Promise<{ id: string }>;
 }
 
 const SingleArticlePage = async ({ params }: SingleArticlePageProps) => {
-  const { id } = await params; // Await params first
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${id}`
-  );
+  const token = (await cookies()).get("jwtToken")?.value || "";
+  const payload = verifyTokenFroPage(token);
 
-  if (!response.ok) {
-    throw new Error("Somthing failed to fetch article");
-  }
-  const article: Article = await response.json();
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  const article: SingleArticle = await getSingleArticle((await params).id);
 
   return (
     <section className="fix-height container m-auto w-full px-5 pt-8 md:w-3/4">
@@ -23,16 +23,39 @@ const SingleArticlePage = async ({ params }: SingleArticlePageProps) => {
         <h1 className="text-xl font-bold text-gray-700 mb-2">
           {article.title}
         </h1>
-        <div className="text-gray-400">1/1/2024</div>
-        <p className="text-gray-800 text-xl mt-5">{article.body}</p>
+        <div className="text-gray-400">
+          {new Date(article.createdAt).toDateString()}
+        </div>
+        <p className="text-gray-800 text-xl mt-5">{article.description}</p>
       </div>
-      <AddCommentForm />
-      <h4 className="text-xl text-gray-800 ps-1 font-semibold mb-2 mt-7">
+      <div>
+        {payload ? (
+          <AddCommentForm articleId={article.id} />
+        ) : (
+          <p className="md:text-xl font-semibold text-blue-600">
+            to write a comment you should log in first
+          </p>
+        )}
+      </div>
+      <h4 className="text-2xl text-gray-800 ps-1 font-semibold mb-2 mt-7">
         Comments
       </h4>
-      <CommentItem />
-      <CommentItem />
-      <CommentItem />
+      {article.comments ? (
+        <>
+          {article.comments.map((comment) => (
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              userId={payload?.id}
+              commentId={comment.id}
+            />
+          ))}
+        </>
+      ) : (
+        <span className="text-xl font-semibold text-red-600 animate-pulse">
+          Articles Nothing
+        </span>
+      )}
     </section>
   );
 };

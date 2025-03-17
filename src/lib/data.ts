@@ -1,7 +1,7 @@
 export const articles = [
   {
     id: 1,
-    userId: 101,
+    userId: 12,
     title: "TypeScripte",
     body: "Typescript is a powrefull programing language",
   },

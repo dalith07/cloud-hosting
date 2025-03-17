@@ -1,6 +1,13 @@
 import RegisterForm from "./RegisterForm";
+// import { cookies } from "next/headers";
+// import { redirect } from "next/navigation";
 
-function page() {
+async function page() {
+  // const token = (await cookies()).get("jwtToken")?.value;
+
+  // code fel middleware khir meli nhoto lena w f login
+  // if (token) redirect("/"); // redirect yaamel throw l error yaani mnamlech return
+
   return (
     <section
       className="fix-height container m-auto px-7 flex 

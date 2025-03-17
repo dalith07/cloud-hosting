@@ -1,17 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { DOMAIN } from "@/lib/constants";
 
-const AddCommentForm = () => {
+interface AddCommentFormProps {
+  articleId: number;
+}
+
+const AddCommentForm = ({ articleId }: AddCommentFormProps) => {
+  const router = useRouter();
   const [text, setText] = useState("");
 
-  const fromSubmitHandler = (e: React.FormEvent) => {
+  // console.log("😒😒😒", articleId);
+  const fromSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (text === "") toast.error("Please write somthing");
-
-    console.log({ text });
+    if (text === "") toast.error("Please write something");
+    try {
+      await axios.post(`${DOMAIN}/api/comments`, { text, articleId });
+      router.refresh();
+      setText("");
+    } catch (error: any) {
+      toast.error(error?.response?.data.message);
+      console.log(error);
+    }
   };
+  // console.log({ text });
 
   return (
     <div>

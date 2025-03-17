@@ -6,9 +6,15 @@ import { GrTechnology } from "react-icons/gr";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { MdOutlineClose } from "react-icons/md";
+interface NavBarProps {
+  isAdmin: boolean;
+}
 
-const Navbar = () => {
+const Navbar = ({ isAdmin }: NavBarProps) => {
   const [toggle, setToggle] = useState(false);
+  // const isAdmin = user?.email === process.env.ADMIN_EMAIL;
+  // console.log("🟢 User Object:", user);
+  // console.log("✅ Email:", user?.email);
 
   return (
     <nav className={styles.navbar}>
@@ -45,7 +51,7 @@ const Navbar = () => {
           <Link
             onClick={() => setToggle(false)}
             className={styles.navLink}
-            href="/articles"
+            href="/articles?pageNumber=1"
           >
             Articles
           </Link>
@@ -56,13 +62,16 @@ const Navbar = () => {
           >
             About
           </Link>
-          <Link
-            onClick={() => setToggle(false)}
-            className={styles.navLink}
-            href="/admin"
-          >
-            Admin Dashboard
-          </Link>
+          {isAdmin && (
+            <Link
+              onClick={() => setToggle(false)}
+              className="font-bold text-xl border-b-2 
+               border-blue-900"
+              href="/admin"
+            >
+              Dashboard
+            </Link>
+          )}
         </ul>
       </div>
     </nav>
