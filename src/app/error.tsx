@@ -21,7 +21,7 @@ const error = ({ error, reset }: ErrorPageProps) => {
         Try Again
       </Button>
       <Button className="mt-6">
-        <Link href="/" className="text-xl to-blue-700 block ">
+        <Link href="/" className="text-xl to-blue-600 block ">
           Go To Home Page
         </Link>
       </Button>
